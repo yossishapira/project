@@ -7,7 +7,7 @@ export class ShiftsController {
 
     @Post()
     addShift(@Body() shift: Shift): string {
-        this.shiftsService.(shift);
+        this.shiftsService.create(shift);
         return "Registration was successful"
 
     }
