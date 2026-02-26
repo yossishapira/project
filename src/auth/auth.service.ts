@@ -14,7 +14,7 @@ export class AuthService {
     username: string,
     password: string,
   ): Promise<{ access_token: string }> {
-    const user: CreateUserDto | null = await this.usersService.findOne(username);
+    const user: CreateUserDto | null = await this.usersService.getByid(username);
 
     if (!user) {
       throw new UnauthorizedException("User not found");

@@ -11,10 +11,12 @@ export class UsersService {
     private readonly userModel: typeof User,
   ) { }
   async create(createUserDto: CreateUserDto): Promise<{ message: string }> {
+    
     const { username, email, password, role } = createUserDto
     const user = await this.userModel.findOne({ 
       where: {username} 
     });
+    
     if (user) {
       throw new BadRequestException('user already exists');
     }
@@ -34,9 +36,9 @@ export class UsersService {
       where: { username }
     });
   }
-  async removeById(id: string): Promise<{ message: string }> {
+  async removeById(usename: string): Promise<{ message: string }> {
     const user = await this.userModel.findOne({
-      where: { id }
+      where: { usename }
     });
     if (!user) {
       throw new UnauthorizedException('usern not found');
@@ -48,12 +50,12 @@ export class UsersService {
   }
   async updateByid(
     user: CreateUserDto,
-    id: string,
+    usename: string,
   ): Promise<{ message: string; data: any }> {
     if (user.password) {
       user.password = await bcrypt.hash(user.password, 10);
     }
-    await this.userModel.update(user, { where: { id } });
+    await this.userModel.update(user, { where: { usename } });
     return {
       message: 'the user updated sucsses ',
       data: user,

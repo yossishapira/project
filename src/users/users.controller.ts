@@ -21,7 +21,7 @@ export class UsersController {
     @UseGuards(AuthGuard, RolesGuard)
     @Get()
     async getAllUser() {
-        console.log("!!");
+
         return this.usersService.findAll()
     }
     @Get()
